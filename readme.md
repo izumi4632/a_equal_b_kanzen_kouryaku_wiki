@@ -49,7 +49,7 @@ A=Bの問題は最悪でも以下のようなInputの制約を持ちます。
 
 最短10行のところを3279行で解くことができました、やったー！
 
-![Alt text](image.png)
+![クリア例](./asset/image.png)
 
 # トロコン
 
@@ -64,7 +64,7 @@ A=Bの問題は最悪でも以下のようなInputの制約を持ちます。
 文字列の最大長と解法を表す関数fを引数にとって全列挙解法のコードを返します。
 
 ```jl
-solve(f, n=7) = join(["$(i)=(return)$(f(i))\n" for i in vcat([(f -> (x->f((y,z)->((x(x))(y,z))))(x->f((y,z)->((x(x))(y,z)))))(f -> (n, memo::Dict{Int, Vector{String}}=Dict(0=>[""])) -> haskey(memo, n) ? memo[n] : (memo[n] = vcat([[s*c for s in f(n-1, memo)] for c in 'a':'c']...)))(i) for i in n:-1:1]...)])
+solve(f, n=7) = join(["$(i)=(return)$(f(i))\n" for i in vcat([(f -> (x -> f((y, z) -> ((x(x))(y, z))))(x -> f((y, z) -> ((x(x))(y, z)))))(f -> (n, memo=Dict(0 => [""])) -> haskey(memo, n) ? memo[n] : (memo[n] = vcat([[s * c for s in f(n - 1, memo)] for c in 'a':'c']...)))(i) for i in n:-1:1]...)])
 ```
 
 # ちょっとした解説
@@ -78,8 +78,8 @@ solve(f, n=7) = join(["$(i)=(return)$(f(i))\n" for i in vcat([(f -> (x->f((y,z)-
 メモのデフォルト値として終了条件を指定しています。
 
 ```jl
-(f -> (n, memo::Dict{Int, Vector{String}}=Dict(0=>[""])) -> haskey(memo, n) ? memo[n] : (memo[n] = vcat([[s*c for s in f(n-1, memo)] for c in 'a':'c']...)))
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                                                                       ^^^^
+(f -> (n, memo::Dict{Int,Vector{String}}=Dict(0 => [""])) -> haskey(memo, n) ? memo[n] : (memo[n] = vcat([[s * c for s in f(n - 1, memo)] for c in 'a':'c']...)))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                                                                           ^^^^
           メモ化再帰のための引数と終了条件としてのデフォルト値
 ```
 
